@@ -9,13 +9,14 @@ import axios from '../utils/axios';
 import { types } from 'util';
 import { Provider } from 'react-redux'
 import router from 'next/router';
+
 const { Header, Footer, Content } = Layout;
 const __REDUX_STORE__ = '__REDUX_STORE__';
+
 function getStore(initialState) {
     if (typeof window == 'undefined') {
-        // 如果在服务器端运行 那么直接创建新仓库返回
         return createStore(initialState);
-    } else {// 如果此代码是在客户端执行的,第一次会创建，以后每次都复用上一次创建的
+    } else {
         if (!window[__REDUX_STORE__]) {
             window[__REDUX_STORE__] = createStore(initialState);
         }
@@ -32,7 +33,6 @@ class LayoutApp extends App<any> {
     }
     constructor(props) {
         super(props); 
-        // 此构造函数只会在客户端执行一次
         this.store = getStore(props.initialState);
     }
     static async getInitialProps({ Component, ctx }) {
@@ -41,7 +41,7 @@ class LayoutApp extends App<any> {
         let options: any = {
             url: '/api/currentUser'
         }
-        // 如果此方法是在服务器执行的，那么会有ctx.req属性，它代表本次node请求对象
+    
         if (ctx.req && ctx.req.headers.cookie) {
             options.headers = options.headers || {};
             options.headers.cookie = ctx.req.headers.cookie;
@@ -72,7 +72,6 @@ class LayoutApp extends App<any> {
         router.events.off('routeChangeComplete', this.routeChangeComplete);
     }
     render() {
-        // Component就是页面组件
         let { Component } = this.props;
         let pathname = this.props.router.pathname;
         return (
