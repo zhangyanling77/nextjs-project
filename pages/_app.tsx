@@ -122,7 +122,7 @@ class LayoutApp extends App<any> {
                     {
                         this.state.loading ? <Spin style={{ fontSize: 50, margin: '50px auto' }} /> : <Component {...this.props.pageProps} />
                     }
-                    <Footer style={{ textAlign: 'center' }}>@copyright 珠峰架构</Footer>
+                    <Footer style={{ textAlign: 'center' }}>@copyright xxx</Footer>
                 </Layout>
             </Provider>
 
